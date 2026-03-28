@@ -154,12 +154,20 @@ def event_detail() -> rx.Component:
                     "📖 Escritura",
                     class_name="text-xl font-bold text-[#4a3320] font-serif",
                 ),
-                rx.el.button(
-                    "Leer Pasaje",
-                    on_click=lambda: BibleState.fetch_scripture(
-                        BibleState.selected_event["scripture_ref"]
+                rx.el.div(
+                    rx.el.button(
+                        "Leer Pasaje",
+                        on_click=lambda: BibleState.fetch_scripture(
+                            BibleState.selected_event["scripture_ref"]
+                        ),
+                        class_name="px-4 py-1.5 bg-[#8b5a2b] text-white text-sm font-medium rounded-lg hover:bg-[#6b421a] transition-all shadow-sm",
                     ),
-                    class_name="px-4 py-1.5 bg-[#8b5a2b] text-white text-sm font-medium rounded-lg hover:bg-[#6b421a] transition-all shadow-sm",
+                    rx.el.button(
+                        "Leer Capítulo",
+                        on_click=BibleState.open_event_context_modal,
+                        class_name="px-4 py-1.5 bg-white text-[#8b5a2b] text-sm font-medium rounded-lg border-2 border-[#8b5a2b] hover:bg-[#8b5a2b] hover:text-white transition-all shadow-sm",
+                    ),
+                    class_name="flex gap-2",
                 ),
                 class_name="flex justify-between items-center mb-4 border-b border-stone-300 pb-2",
             ),

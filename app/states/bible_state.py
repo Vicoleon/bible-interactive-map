@@ -2242,6 +2242,26 @@ class BibleState(rx.State):
         return BibleState.fetch_context_chapter(chapter_id)
 
     @rx.event
+    def open_event_context_modal(self):
+        """Open the full-chapter context modal for the currently selected event's scripture."""
+        event = self.selected_event
+        if not event:
+            return
+        scripture_ref = event.get("scripture_ref", "")
+        passage_id = SCRIPTURE_REFS.get(scripture_ref, "")
+        if not passage_id:
+            return
+        parts = passage_id.split(".")
+        if len(parts) >= 2:
+            chapter_id = f"{parts[0]}.{parts[1]}"
+        else:
+            return
+        self.context_chapter_id = chapter_id
+        self.context_chapter_reference = scripture_ref
+        self.context_modal_open = True
+        return BibleState.fetch_context_chapter(chapter_id)
+
+    @rx.event
     def close_context_modal(self):
         self.context_modal_open = False
         self.context_chapter_text = ""
