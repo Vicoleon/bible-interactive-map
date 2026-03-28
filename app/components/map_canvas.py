@@ -225,10 +225,8 @@ def testament_view() -> rx.Component:
                     nt_era_labels(),
                 ),
                 rx.foreach(BibleState.visible_characters, render_character_node),
-                id="map-scroll-container",
-                class_name="relative w-full h-[calc(100vh-80px)] overflow-y-auto no-scrollbar bg-[#faf6eb] border-8 border-double border-[#d4b886] rounded-3xl shadow-[inset_0_0_100px_rgba(139,90,43,0.2)] overflow-visible mx-auto",
+                class_name="relative w-full bg-[#faf6eb] border-8 border-double border-[#d4b886] rounded-3xl shadow-[inset_0_0_100px_rgba(139,90,43,0.2)] overflow-visible mx-auto",
                 style={"height": BibleState.map_canvas_height, "max-width": "1200px"},
-                on_mount=BibleState.auto_close_legend,
             ),
             class_name="p-8 min-h-[2200px]",
         ),
@@ -316,6 +314,8 @@ def testament_view() -> rx.Component:
             ),
             class_name="fixed bottom-4 left-4 md:bottom-12 md:left-12 z-40 transition-all duration-500",
         ),
+        id="map-scroll-container",
+        on_mount=BibleState.auto_close_legend,
         class_name="w-full h-[calc(100vh-80px)] overflow-y-auto no-scrollbar bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#eaddc5] to-[#d4b886] relative",
     )
 
