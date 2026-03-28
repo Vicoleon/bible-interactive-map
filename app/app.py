@@ -39,6 +39,71 @@ def context_modal() -> rx.Component:
                 ),
                 class_name="flex items-center justify-between px-8 pt-8 pb-4",
             ),
+            rx.cond(
+                BibleState.audio_is_available,
+                rx.el.div(
+                    rx.cond(
+                        BibleState.audio_url != "",
+                        rx.el.div(
+                            rx.el.div(
+                                rx.icon(
+                                    "volume-2",
+                                    size=18,
+                                    class_name="text-[#8b5a2b] shrink-0",
+                                ),
+                                rx.el.span(
+                                    "Audio Disponible (English - WEB)",
+                                    class_name="text-sm text-[#8b5a2b] font-medium",
+                                ),
+                                class_name="flex items-center gap-2 mb-2",
+                            ),
+                            rx.el.audio(
+                                rx.el.source(
+                                    src=BibleState.audio_url, type="audio/mpeg"
+                                ),
+                                controls=True,
+                                auto_play=True,
+                                class_name="w-full h-10 rounded-lg",
+                            ),
+                            rx.el.button(
+                                rx.icon("x", size=14, class_name="mr-1"),
+                                "Cerrar Audio",
+                                on_click=BibleState.stop_audio,
+                                class_name="mt-2 text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1 mx-auto transition-colors",
+                            ),
+                            class_name="bg-amber-50/80 border border-amber-200 rounded-xl p-4 mx-8 mt-4 mb-4",
+                        ),
+                        rx.el.div(
+                            rx.cond(
+                                BibleState.audio_loading,
+                                rx.el.button(
+                                    rx.icon(
+                                        "loader",
+                                        size=16,
+                                        class_name="animate-spin mr-2",
+                                    ),
+                                    "Cargando audio...",
+                                    disabled=True,
+                                    class_name="flex items-center px-4 py-2 bg-stone-200 text-stone-500 rounded-lg text-sm font-medium mx-auto",
+                                ),
+                                rx.el.button(
+                                    rx.icon("headphones", size=16, class_name="mr-2"),
+                                    "🔊 Escuchar Capítulo",
+                                    on_click=lambda: BibleState.fetch_audio(
+                                        BibleState.context_chapter_id
+                                    ),
+                                    class_name="flex items-center px-4 py-2 bg-[#8b5a2b] hover:bg-[#6b421a] text-white rounded-lg text-sm font-medium mx-auto shadow-sm transition-all",
+                                ),
+                            ),
+                            rx.el.p(
+                                "Audio en inglés (World English Bible)",
+                                class_name="text-[10px] text-stone-400 text-center mt-1 italic",
+                            ),
+                            class_name="flex flex-col items-center mx-8 mt-4 mb-4",
+                        ),
+                    )
+                ),
+            ),
             rx.el.div(class_name="h-px bg-[#d4b886] mx-8"),
             rx.cond(
                 BibleState.context_chapter_loading,
