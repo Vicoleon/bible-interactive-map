@@ -64,15 +64,18 @@ def timeline_view() -> rx.Component:
             rx.el.div(
                 rx.el.h1(
                     "Cronología Bíblica",
-                    class_name="text-5xl font-bold font-serif text-[#4a3320] text-center mb-4",
+                    class_name="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#4a3320] text-center mb-4",
                 ),
                 rx.el.p(
                     "Recorre la narrativa de las Escrituras desde la Creación hasta el Apocalipsis.",
-                    class_name="text-lg text-[#8b5a2b] text-center italic mb-12",
+                    class_name="text-lg text-[#8b5a2b] text-center italic mb-12 px-4",
                 ),
                 class_name="max-w-4xl mx-auto pt-12",
             ),
-            rx.foreach(BibleState.timeline_events_by_era, render_era_section),
+            rx.el.div(
+                rx.foreach(BibleState.timeline_events_by_era, render_era_section),
+                class_name="px-4",
+            ),
             class_name="min-h-full pb-32 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] bg-opacity-50",
         ),
         class_name="w-full h-[calc(100vh-80px)] overflow-y-auto bg-[#faf6eb]",

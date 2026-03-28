@@ -273,7 +273,7 @@ def unified_search() -> rx.Component:
                         ),
                     ),
                 ),
-                class_name="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[480px] max-h-[500px] overflow-y-auto bg-[#faf6eb] bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] border-2 border-[#d4b886] p-4 z-50 animate-fade-in no-scrollbar",
+                class_name="absolute top-full left-0 right-0 md:left-1/2 md:right-auto md:-translate-x-1/2 mt-4 w-full md:w-[480px] max-h-[70vh] md:max-h-[500px] overflow-y-auto bg-[#faf6eb] bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] border-2 border-[#d4b886] p-4 z-50 animate-fade-in no-scrollbar",
             ),
         ),
         class_name="relative w-full max-w-[500px]",

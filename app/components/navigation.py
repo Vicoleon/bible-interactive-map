@@ -7,51 +7,71 @@ def navigation() -> rx.Component:
     return rx.el.nav(
         rx.el.div(
             rx.el.div(
-                rx.icon("book-open", class_name="text-[#8b5a2b] mr-3", size=28),
-                rx.el.h1(
-                    "Mapa Bíblico",
-                    class_name="text-2xl font-bold text-[#4a3320] font-serif tracking-wide whitespace-nowrap",
+                rx.el.div(
+                    rx.icon("book-open", class_name="text-[#8b5a2b] mr-3", size=28),
+                    rx.el.h1(
+                        "Mapa Bíblico",
+                        class_name="text-2xl font-bold text-[#4a3320] font-serif tracking-wide whitespace-nowrap hidden sm:block",
+                    ),
+                    class_name="flex items-center shrink-0",
                 ),
-                class_name="flex items-center shrink-0",
-            ),
-            rx.el.div(unified_search(), class_name="flex-1 flex justify-center px-8"),
-            rx.el.div(
+                rx.el.div(
+                    unified_search(),
+                    class_name="flex-1 hidden md:flex justify-center px-8",
+                ),
                 rx.el.div(
                     rx.el.button(
-                        "🗺️ Mapa",
-                        on_click=lambda: BibleState.set_active_view("map"),
-                        class_name="px-4 py-2 rounded-l-lg border border-[#d4b886] font-medium transition-colors "
-                        + rx.cond(
-                            BibleState.active_view == "map",
-                            "bg-[#8b5a2b] text-white",
-                            "bg-white/80 text-stone-700 hover:bg-stone-100",
+                        rx.icon("search", size=20),
+                        on_click=BibleState.toggle_mobile_search,
+                        class_name="md:hidden p-2 rounded-lg bg-white/50 border border-[#d4b886] text-[#8b5a2b]",
+                    ),
+                    rx.el.div(
+                        rx.el.button(
+                            rx.el.span("🗺️ "),
+                            rx.el.span("Mapa", class_name="hidden sm:inline"),
+                            on_click=lambda: BibleState.set_active_view("map"),
+                            class_name="px-3 sm:px-4 py-2 rounded-l-lg border border-[#d4b886] font-medium transition-colors "
+                            + rx.cond(
+                                BibleState.active_view == "map",
+                                "bg-[#8b5a2b] text-white",
+                                "bg-white/80 text-stone-700 hover:bg-stone-100",
+                            ),
+                        ),
+                        rx.el.button(
+                            rx.el.span("📜 "),
+                            rx.el.span("Cronología", class_name="hidden sm:inline"),
+                            on_click=lambda: BibleState.set_active_view("timeline"),
+                            class_name="px-3 sm:px-4 py-2 rounded-r-lg border border-l-0 border-[#d4b886] font-medium transition-colors "
+                            + rx.cond(
+                                BibleState.active_view == "timeline",
+                                "bg-[#8b5a2b] text-white",
+                                "bg-white/80 text-stone-700 hover:bg-stone-100",
+                            ),
+                        ),
+                        class_name="flex items-center shadow-sm",
+                    ),
+                    rx.cond(
+                        (BibleState.view_state != "overview")
+                        & (BibleState.active_view == "map"),
+                        rx.el.button(
+                            rx.icon("arrow-left", size=18),
+                            rx.el.span("Volver", class_name="hidden sm:inline ml-2"),
+                            on_click=lambda: BibleState.set_view("overview"),
+                            class_name="flex items-center px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg border border-stone-300 font-medium transition-colors shadow-sm",
                         ),
                     ),
-                    rx.el.button(
-                        "📜 Cronología",
-                        on_click=lambda: BibleState.set_active_view("timeline"),
-                        class_name="px-4 py-2 rounded-r-lg border border-l-0 border-[#d4b886] font-medium transition-colors "
-                        + rx.cond(
-                            BibleState.active_view == "timeline",
-                            "bg-[#8b5a2b] text-white",
-                            "bg-white/80 text-stone-700 hover:bg-stone-100",
-                        ),
-                    ),
-                    class_name="flex items-center mr-6 shadow-sm",
+                    class_name="flex items-center gap-2 sm:gap-4 shrink-0",
                 ),
-                rx.cond(
-                    (BibleState.view_state != "overview")
-                    & (BibleState.active_view == "map"),
-                    rx.el.button(
-                        rx.icon("arrow-left", size=18, class_name="mr-2"),
-                        "Volver al Inicio",
-                        on_click=lambda: BibleState.set_view("overview"),
-                        class_name="flex items-center px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg border border-stone-300 font-medium transition-colors shadow-sm mr-4",
-                    ),
-                ),
-                class_name="flex items-center gap-4 shrink-0",
+                class_name="max-w-7xl w-full mx-auto flex justify-between items-center",
             ),
-            class_name="max-w-7xl w-full mx-auto flex justify-between items-center",
+            rx.cond(
+                BibleState.search_mobile_open,
+                rx.el.div(
+                    unified_search(),
+                    class_name="md:hidden mt-3 max-w-7xl mx-auto w-full animate-fade-in",
+                ),
+            ),
+            class_name="w-full",
         ),
         rx.cond(
             (BibleState.view_state != "overview") & (BibleState.active_view == "map"),
@@ -71,7 +91,7 @@ def navigation() -> rx.Component:
                             ),
                         ),
                     ),
-                    class_name="flex gap-2 overflow-x-auto py-2 no-scrollbar",
+                    class_name="flex gap-2 overflow-x-auto py-2 pb-2 no-scrollbar",
                 ),
                 rx.cond(
                     BibleState.is_filtering,

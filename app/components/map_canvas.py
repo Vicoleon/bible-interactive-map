@@ -66,28 +66,28 @@ def overview_view() -> rx.Component:
             rx.el.div(
                 rx.el.h2(
                     "Antiguo Testamento",
-                    class_name="text-4xl font-serif font-bold text-[#4a3320] mb-4 text-center",
+                    class_name="text-2xl md:text-4xl font-serif font-bold text-[#4a3320] mb-4 text-center",
                 ),
                 rx.el.p(
                     "Ley, Profetas y Escritos",
                     class_name="text-[#8b5a2b] text-center font-medium text-lg italic mb-8",
                 ),
                 rx.el.div(
-                    rx.icon("scroll", size=64, class_name="text-[#d4b886] mb-6"),
+                    rx.icon("scroll", size=48, class_name="text-[#d4b886] mb-6"),
                     rx.el.button(
                         "Explorar Antiguo Testamento",
                         on_click=lambda: BibleState.set_view("old_testament"),
-                        class_name="px-8 py-4 bg-[#8b5a2b] hover:bg-[#6b421a] text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-lg font-bold",
+                        class_name="px-6 py-3 md:px-8 md:py-4 bg-[#8b5a2b] hover:bg-[#6b421a] text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-base md:text-lg font-bold",
                     ),
-                    class_name="flex flex-col items-center justify-center h-64",
+                    class_name="flex flex-col items-center justify-center h-40 md:h-64",
                 ),
-                class_name="flex-1 bg-[#faf6eb] rounded-3xl p-10 shadow-2xl border-4 border-[#e8d5b5] hover:border-[#8b5a2b] transition-all duration-500 cursor-pointer group hover:-translate-y-2 relative overflow-hidden",
+                class_name="flex-1 bg-[#faf6eb] rounded-3xl p-6 md:p-10 shadow-2xl border-4 border-[#e8d5b5] hover:border-[#8b5a2b] transition-all duration-500 cursor-pointer group hover:-translate-y-2 relative overflow-hidden",
                 on_click=lambda: BibleState.set_view("old_testament"),
             ),
             rx.el.div(
                 rx.el.h2(
                     "Nuevo Testamento",
-                    class_name="text-4xl font-serif font-bold text-[#4a3320] mb-4 text-center",
+                    class_name="text-2xl md:text-4xl font-serif font-bold text-[#4a3320] mb-4 text-center",
                 ),
                 rx.el.p(
                     "Evangelios, Hechos y Epístolas",
@@ -95,21 +95,21 @@ def overview_view() -> rx.Component:
                 ),
                 rx.el.div(
                     rx.icon(
-                        "book-open-text", size=64, class_name="text-[#d4b886] mb-6"
+                        "book-open-text", size=48, class_name="text-[#d4b886] mb-6"
                     ),
                     rx.el.button(
                         "Explorar Nuevo Testamento",
                         on_click=lambda: BibleState.set_view("new_testament"),
-                        class_name="px-8 py-4 bg-[#8b5a2b] hover:bg-[#6b421a] text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-lg font-bold",
+                        class_name="px-6 py-3 md:px-8 md:py-4 bg-[#8b5a2b] hover:bg-[#6b421a] text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-base md:text-lg font-bold",
                     ),
-                    class_name="flex flex-col items-center justify-center h-64",
+                    class_name="flex flex-col items-center justify-center h-40 md:h-64",
                 ),
-                class_name="flex-1 bg-[#faf6eb] rounded-3xl p-10 shadow-2xl border-4 border-[#e8d5b5] hover:border-[#8b5a2b] transition-all duration-500 cursor-pointer group hover:-translate-y-2 relative overflow-hidden",
+                class_name="flex-1 bg-[#faf6eb] rounded-3xl p-6 md:p-10 shadow-2xl border-4 border-[#e8d5b5] hover:border-[#8b5a2b] transition-all duration-500 cursor-pointer group hover:-translate-y-2 relative overflow-hidden",
                 on_click=lambda: BibleState.set_view("new_testament"),
             ),
-            class_name="flex gap-12 w-full max-w-6xl mx-auto mt-20 p-4",
+            class_name="flex flex-col md:flex-row gap-6 md:gap-12 w-full max-w-6xl mx-auto mt-8 md:mt-20 p-4",
         ),
-        class_name="w-full h-[calc(100vh-80px)] flex flex-col items-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#eaddc5] to-[#d4b886]",
+        class_name="w-full h-[calc(100vh-80px)] flex flex-col items-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#eaddc5] to-[#d4b886] overflow-y-auto",
     )
 
 
@@ -313,7 +313,7 @@ def testament_view() -> rx.Component:
                     class_name="group relative w-12 h-12 rounded-full bg-[#faf6eb] border-2 border-[#d4b886] shadow-lg flex items-center justify-center hover:scale-110 hover:shadow-[0_0_15px_rgba(139,90,43,0.3)] transition-all duration-300",
                 ),
             ),
-            class_name="fixed bottom-12 left-12 z-40 transition-all duration-500",
+            class_name="fixed bottom-4 left-4 md:bottom-12 md:left-12 z-40 transition-all duration-500",
         ),
         class_name="w-full h-[calc(100vh-80px)] overflow-y-auto no-scrollbar bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#eaddc5] to-[#d4b886] relative",
     )

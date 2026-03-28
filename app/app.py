@@ -12,19 +12,19 @@ def context_modal() -> rx.Component:
             rx.dialog.close(
                 rx.el.button(
                     rx.icon("x", size=24),
-                    class_name="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 transition-colors z-10",
+                    class_name="absolute top-4 right-4 p-3 rounded-full hover:bg-stone-200 transition-colors z-10",
                 )
             ),
             rx.el.div(
                 rx.el.button(
                     rx.icon("chevron-left", size=20),
                     on_click=lambda: BibleState.navigate_context_chapter(-1),
-                    class_name="p-2 rounded-lg bg-stone-100 hover:bg-stone-200 transition-colors",
+                    class_name="p-3 rounded-lg bg-stone-100 hover:bg-stone-200 transition-colors",
                 ),
                 rx.el.div(
                     rx.dialog.title(
                         BibleState.context_chapter_reference,
-                        class_name="text-3xl font-bold font-serif text-[#4a3320] text-center mb-1",
+                        class_name="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-[#4a3320] text-center mb-1",
                     ),
                     rx.dialog.description(
                         "Capítulo Completo",
@@ -35,11 +35,11 @@ def context_modal() -> rx.Component:
                 rx.el.button(
                     rx.icon("chevron-right", size=20),
                     on_click=lambda: BibleState.navigate_context_chapter(1),
-                    class_name="p-2 rounded-lg bg-stone-100 hover:bg-stone-200 transition-colors",
+                    class_name="p-3 rounded-lg bg-stone-100 hover:bg-stone-200 transition-colors",
                 ),
-                class_name="flex items-center justify-between px-8 pt-8 pb-4",
+                class_name="flex items-center justify-between px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 pb-3 sm:pb-4",
             ),
-            rx.el.div(class_name="h-px bg-[#d4b886] mx-8"),
+            rx.el.div(class_name="h-px bg-[#d4b886] mx-4 sm:mx-6 md:mx-8"),
             rx.cond(
                 BibleState.context_chapter_loading,
                 rx.el.div(
@@ -59,7 +59,7 @@ def context_modal() -> rx.Component:
                         BibleState.context_chapter_text,
                         class_name="font-serif text-stone-800 text-lg leading-loose text-justify whitespace-pre-wrap",
                     ),
-                    class_name="bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] bg-[#f4ebd8] p-8 mx-8 my-6 rounded-2xl shadow-inner border-2 border-[#d4b886] overflow-y-auto max-h-[60vh] no-scrollbar",
+                    class_name="bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] bg-[#f4ebd8] p-4 sm:p-6 md:p-8 mx-4 sm:mx-6 md:mx-8 my-4 sm:my-6 rounded-2xl shadow-inner border-2 border-[#d4b886] overflow-y-auto max-h-[50vh] sm:max-h-[60vh] no-scrollbar",
                 ),
             ),
             class_name="bg-[#faf6eb] rounded-3xl shadow-2xl border-4 border-[#d4b886] max-w-4xl w-full relative overflow-hidden p-0",

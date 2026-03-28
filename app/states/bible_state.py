@@ -2131,6 +2131,11 @@ class BibleState(rx.State):
     context_chapter_loading: bool = False
     context_chapter_reference: str = ""
     context_chapter_id: str = ""
+    search_mobile_open: bool = False
+
+    @rx.event
+    def toggle_mobile_search(self):
+        self.search_mobile_open = not self.search_mobile_open
 
     @rx.event
     def toggle_legend(self):
@@ -2403,6 +2408,7 @@ class BibleState(rx.State):
         self.scripture_search_results = []
         self.scripture_search_loading = False
         self.scripture_search_query = ""
+        self.search_mobile_open = False
 
     @rx.event(background=True)
     async def search_scripture_api(self, query: str):
