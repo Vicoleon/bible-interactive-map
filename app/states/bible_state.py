@@ -2531,9 +2531,39 @@ class BibleState(rx.State):
     def set_era(self, era: str):
         if era == "Todos" or era == self.selected_era:
             self.selected_era = "All"
+            self.selected_character_id = None
+            return rx.call_script(
+                "document.getElementById('map-scroll-container')?.scrollTo({ top: 0, behavior: 'smooth' })"
+            )
         else:
             self.selected_era = era
-        self.selected_character_id = None
+            self.selected_character_id = None
+            if self.view_state == "old_testament":
+                positions = {
+                    "Creación": 2,
+                    "Pre-Diluvio": 9,
+                    "Patriarcal": 16,
+                    "Éxodo": 40,
+                    "Conquista": 50,
+                    "Jueces": 50,
+                    "Reino Unido": 66,
+                    "Reino Dividido": 78,
+                    "Exilio": 86,
+                    "Post-Exilio": 92,
+                }
+                canvas_height = 2200
+            elif self.view_state == "new_testament":
+                positions = {"Evangelios": 6, "Iglesia Primitiva": 59}
+                canvas_height = 1600
+            else:
+                return
+            pct = positions.get(era, -1)
+            if pct < 0:
+                return
+            px = int(pct / 100 * canvas_height)
+            return rx.call_script(
+                f"document.getElementById('map-scroll-container')?.scrollTo({{ top: {px}, behavior: 'smooth' }})"
+            )
 
     @rx.var
     def visible_characters(self) -> list[Character]:
