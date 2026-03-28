@@ -2131,39 +2131,6 @@ class BibleState(rx.State):
     context_chapter_loading: bool = False
     context_chapter_reference: str = ""
     context_chapter_id: str = ""
-    audio_bible_id: str = "105a06b6146d11e7-01"
-    audio_available_books: list[str] = [
-        "MAT",
-        "MRK",
-        "LUK",
-        "JHN",
-        "ACT",
-        "ROM",
-        "1CO",
-        "2CO",
-        "GAL",
-        "EPH",
-        "PHP",
-        "COL",
-        "1TH",
-        "2TH",
-        "1TI",
-        "2TI",
-        "TIT",
-        "PHM",
-        "HEB",
-        "JAS",
-        "1PE",
-        "2PE",
-        "1JN",
-        "2JN",
-        "3JN",
-        "JUD",
-        "REV",
-    ]
-    audio_url: str = ""
-    audio_loading: bool = False
-    audio_chapter_id: str = ""
 
     @rx.event
     def toggle_legend(self):
@@ -2279,8 +2246,6 @@ class BibleState(rx.State):
         self.context_modal_open = False
         self.context_chapter_text = ""
         self.context_chapter_loading = False
-        self.audio_url = ""
-        self.audio_chapter_id = ""
 
     @rx.event(background=True)
     async def fetch_context_chapter(self, chapter_id: str):
@@ -2322,8 +2287,6 @@ class BibleState(rx.State):
     @rx.event
     def navigate_context_chapter(self, direction: int):
         """Navigate to previous or next chapter in the modal."""
-        self.audio_url = ""
-        self.audio_chapter_id = ""
         if not self.context_chapter_id:
             return
         parts = self.context_chapter_id.split(".")
@@ -2337,53 +2300,6 @@ class BibleState(rx.State):
             new_id = f"{book}.{new_chapter}"
             self.context_chapter_id = new_id
             return BibleState.fetch_context_chapter(new_id)
-
-    @rx.var
-    def audio_is_available(self) -> bool:
-        if not self.context_chapter_id:
-            return False
-        book_id = (
-            self.context_chapter_id.split(".")[0]
-            if "." in self.context_chapter_id
-            else ""
-        )
-        return book_id in self.audio_available_books
-
-    @rx.event(background=True)
-    async def fetch_audio(self, chapter_id: str):
-        """Fetch audio URL from API.Bible audio endpoint."""
-        async with self:
-            self.audio_loading = True
-            self.audio_url = ""
-            self.audio_chapter_id = chapter_id
-        try:
-            url = f"https://rest.api.bible/v1/audio-bibles/{self.audio_bible_id}/chapters/{chapter_id}"
-            headers = {"api-key": self.api_bible_key}
-            loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(
-                None, functools.partial(requests.get, url, headers=headers)
-            )
-            if response.status_code == 200:
-                data = response.json().get("data", {})
-                resource_url = data.get("resourceUrl", "")
-                async with self:
-                    if self.audio_chapter_id == chapter_id:
-                        self.audio_url = resource_url
-                        self.audio_loading = False
-            else:
-                async with self:
-                    self.audio_url = ""
-                    self.audio_loading = False
-        except Exception as e:
-            logging.exception("Error fetching audio")
-            async with self:
-                self.audio_url = ""
-                self.audio_loading = False
-
-    @rx.event
-    def stop_audio(self):
-        self.audio_url = ""
-        self.audio_chapter_id = ""
 
     @rx.event
     def set_active_view(self, view: str):
