@@ -2503,7 +2503,10 @@ class BibleState(rx.State):
 
     @rx.event
     def set_era(self, era: str):
-        self.selected_era = era
+        if era == "Todos" or era == self.selected_era:
+            self.selected_era = "All"
+        else:
+            self.selected_era = era
         self.selected_character_id = None
 
     @rx.var

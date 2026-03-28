@@ -64,7 +64,8 @@ def navigation() -> rx.Component:
                             on_click=lambda: BibleState.set_era(era),
                             class_name="px-3 py-1 text-sm font-medium rounded-full whitespace-nowrap transition-colors "
                             + rx.cond(
-                                BibleState.selected_era == era,
+                                (BibleState.selected_era == era)
+                                | (era == "Todos") & (BibleState.selected_era == "All"),
                                 "bg-[#8b5a2b] text-white shadow-md",
                                 "bg-white/50 text-[#8b5a2b] hover:bg-[#8b5a2b]/20 border border-[#d4b886]",
                             ),
