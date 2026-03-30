@@ -4,6 +4,7 @@ from app.components.map_canvas import map_canvas
 from app.components.detail_panel import detail_panel
 from app.components.timeline_view import timeline_view
 from app.states.bible_state import BibleState
+from app.components.chat_panel import chat_panel
 
 
 def context_modal() -> rx.Component:
@@ -97,6 +98,7 @@ def index() -> rx.Component:
             class_name="relative w-full flex-1 overflow-hidden",
         ),
         context_modal(),
+        chat_panel(),
         class_name="min-h-screen flex flex-col font-['Inter'] bg-[#eaddc5] overflow-hidden",
     )
 
