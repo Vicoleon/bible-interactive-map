@@ -27,10 +27,21 @@ def navigation() -> rx.Component:
                     ),
                     rx.el.div(
                         rx.el.button(
+                            rx.el.span("📖 "),
+                            rx.el.span("Biblia", class_name="hidden sm:inline"),
+                            on_click=lambda: BibleState.set_active_view("bible"),
+                            class_name="px-3 sm:px-4 py-2 rounded-l-lg border border-[#d4b886] font-medium transition-colors "
+                            + rx.cond(
+                                BibleState.active_view == "bible",
+                                "bg-[#8b5a2b] text-white",
+                                "bg-white/80 text-stone-700 hover:bg-stone-100",
+                            ),
+                        ),
+                        rx.el.button(
                             rx.el.span("🗺️ "),
                             rx.el.span("Mapa", class_name="hidden sm:inline"),
                             on_click=lambda: BibleState.set_active_view("map"),
-                            class_name="px-3 sm:px-4 py-2 rounded-l-lg border border-[#d4b886] font-medium transition-colors "
+                            class_name="px-3 sm:px-4 py-2 border-y border-[#d4b886] font-medium transition-colors "
                             + rx.cond(
                                 BibleState.active_view == "map",
                                 "bg-[#8b5a2b] text-white",

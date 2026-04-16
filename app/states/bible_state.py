@@ -21,6 +21,74 @@ def strip_html(html: str) -> str:
     return text
 
 
+ALL_BIBLE_BOOKS = [
+    {"api_id": "GEN", "name": "Génesis", "chapters": 50, "testament": "AT"},
+    {"api_id": "EXO", "name": "Éxodo", "chapters": 40, "testament": "AT"},
+    {"api_id": "LEV", "name": "Levítico", "chapters": 27, "testament": "AT"},
+    {"api_id": "NUM", "name": "Números", "chapters": 36, "testament": "AT"},
+    {"api_id": "DEU", "name": "Deuteronomio", "chapters": 34, "testament": "AT"},
+    {"api_id": "JOS", "name": "Josué", "chapters": 24, "testament": "AT"},
+    {"api_id": "JDG", "name": "Jueces", "chapters": 21, "testament": "AT"},
+    {"api_id": "RUT", "name": "Rut", "chapters": 4, "testament": "AT"},
+    {"api_id": "1SA", "name": "1 Samuel", "chapters": 31, "testament": "AT"},
+    {"api_id": "2SA", "name": "2 Samuel", "chapters": 24, "testament": "AT"},
+    {"api_id": "1KI", "name": "1 Reyes", "chapters": 22, "testament": "AT"},
+    {"api_id": "2KI", "name": "2 Reyes", "chapters": 25, "testament": "AT"},
+    {"api_id": "1CH", "name": "1 Crónicas", "chapters": 29, "testament": "AT"},
+    {"api_id": "2CH", "name": "2 Crónicas", "chapters": 36, "testament": "AT"},
+    {"api_id": "EZR", "name": "Esdras", "chapters": 10, "testament": "AT"},
+    {"api_id": "NEH", "name": "Nehemías", "chapters": 13, "testament": "AT"},
+    {"api_id": "EST", "name": "Ester", "chapters": 10, "testament": "AT"},
+    {"api_id": "JOB", "name": "Job", "chapters": 42, "testament": "AT"},
+    {"api_id": "PSA", "name": "Salmos", "chapters": 150, "testament": "AT"},
+    {"api_id": "PRO", "name": "Proverbios", "chapters": 31, "testament": "AT"},
+    {"api_id": "ECC", "name": "Eclesiastés", "chapters": 12, "testament": "AT"},
+    {"api_id": "SNG", "name": "Cantares", "chapters": 8, "testament": "AT"},
+    {"api_id": "ISA", "name": "Isaías", "chapters": 66, "testament": "AT"},
+    {"api_id": "JER", "name": "Jeremías", "chapters": 52, "testament": "AT"},
+    {"api_id": "LAM", "name": "Lamentaciones", "chapters": 5, "testament": "AT"},
+    {"api_id": "EZK", "name": "Ezequiel", "chapters": 48, "testament": "AT"},
+    {"api_id": "DAN", "name": "Daniel", "chapters": 12, "testament": "AT"},
+    {"api_id": "HOS", "name": "Oseas", "chapters": 14, "testament": "AT"},
+    {"api_id": "JOL", "name": "Joel", "chapters": 3, "testament": "AT"},
+    {"api_id": "AMO", "name": "Amós", "chapters": 9, "testament": "AT"},
+    {"api_id": "OBA", "name": "Abdías", "chapters": 1, "testament": "AT"},
+    {"api_id": "JON", "name": "Jonás", "chapters": 4, "testament": "AT"},
+    {"api_id": "MIC", "name": "Miqueas", "chapters": 7, "testament": "AT"},
+    {"api_id": "NAM", "name": "Nahúm", "chapters": 3, "testament": "AT"},
+    {"api_id": "HAB", "name": "Habacuc", "chapters": 3, "testament": "AT"},
+    {"api_id": "ZEP", "name": "Sofonías", "chapters": 3, "testament": "AT"},
+    {"api_id": "HAG", "name": "Hageo", "chapters": 2, "testament": "AT"},
+    {"api_id": "ZEC", "name": "Zacarías", "chapters": 14, "testament": "AT"},
+    {"api_id": "MAL", "name": "Malaquías", "chapters": 4, "testament": "AT"},
+    {"api_id": "MAT", "name": "Mateo", "chapters": 28, "testament": "NT"},
+    {"api_id": "MRK", "name": "Marcos", "chapters": 16, "testament": "NT"},
+    {"api_id": "LUK", "name": "Lucas", "chapters": 24, "testament": "NT"},
+    {"api_id": "JHN", "name": "Juan", "chapters": 21, "testament": "NT"},
+    {"api_id": "ACT", "name": "Hechos", "chapters": 28, "testament": "NT"},
+    {"api_id": "ROM", "name": "Romanos", "chapters": 16, "testament": "NT"},
+    {"api_id": "1CO", "name": "1 Corintios", "chapters": 16, "testament": "NT"},
+    {"api_id": "2CO", "name": "2 Corintios", "chapters": 13, "testament": "NT"},
+    {"api_id": "GAL", "name": "Gálatas", "chapters": 6, "testament": "NT"},
+    {"api_id": "EPH", "name": "Efesios", "chapters": 6, "testament": "NT"},
+    {"api_id": "PHP", "name": "Filipenses", "chapters": 4, "testament": "NT"},
+    {"api_id": "COL", "name": "Colosenses", "chapters": 4, "testament": "NT"},
+    {"api_id": "1TH", "name": "1 Tesalonicenses", "chapters": 5, "testament": "NT"},
+    {"api_id": "2TH", "name": "2 Tesalonicenses", "chapters": 3, "testament": "NT"},
+    {"api_id": "1TI", "name": "1 Timoteo", "chapters": 6, "testament": "NT"},
+    {"api_id": "2TI", "name": "2 Timoteo", "chapters": 4, "testament": "NT"},
+    {"api_id": "TIT", "name": "Tito", "chapters": 3, "testament": "NT"},
+    {"api_id": "PHM", "name": "Filemón", "chapters": 1, "testament": "NT"},
+    {"api_id": "HEB", "name": "Hebreos", "chapters": 13, "testament": "NT"},
+    {"api_id": "JAS", "name": "Santiago", "chapters": 5, "testament": "NT"},
+    {"api_id": "1PE", "name": "1 Pedro", "chapters": 5, "testament": "NT"},
+    {"api_id": "2PE", "name": "2 Pedro", "chapters": 3, "testament": "NT"},
+    {"api_id": "1JN", "name": "1 Juan", "chapters": 5, "testament": "NT"},
+    {"api_id": "2JN", "name": "2 Juan", "chapters": 1, "testament": "NT"},
+    {"api_id": "3JN", "name": "3 Juan", "chapters": 1, "testament": "NT"},
+    {"api_id": "JUD", "name": "Judas", "chapters": 1, "testament": "NT"},
+    {"api_id": "REV", "name": "Apocalipsis", "chapters": 22, "testament": "NT"},
+]
 SCRIPTURE_REFS = {
     "Genesis 1-2": "GEN.1.1-GEN.2.25",
     "Genesis 3": "GEN.3.1-GEN.3.24",
@@ -2132,6 +2200,13 @@ class BibleState(rx.State):
     context_chapter_reference: str = ""
     context_chapter_id: str = ""
     search_mobile_open: bool = False
+    reader_expanded_book: str = ""
+    reader_selected_book: str = ""
+    reader_selected_book_name: str = ""
+    reader_selected_chapter: int = 0
+    reader_text: str = ""
+    reader_loading: bool = False
+    reader_testament_filter: str = "all"
 
     @rx.event
     def toggle_mobile_search(self):
@@ -2330,6 +2405,88 @@ class BibleState(rx.State):
     def set_active_view(self, view: str):
         self.active_view = view
         self.clear_selection()
+
+    @rx.event
+    def toggle_reader_book(self, api_id: str):
+        """Toggle accordion expansion for a book."""
+        if self.reader_expanded_book == api_id:
+            self.reader_expanded_book = ""
+        else:
+            self.reader_expanded_book = api_id
+
+    @rx.event
+    def select_reader_chapter(self, api_id: str, book_name: str, chapter: int):
+        """Select a chapter to read."""
+        self.reader_selected_book = api_id
+        self.reader_selected_book_name = book_name
+        self.reader_selected_chapter = chapter
+        return BibleState.fetch_reader_chapter
+
+    @rx.event
+    def reader_prev_chapter(self):
+        """Go to previous chapter."""
+        if self.reader_selected_chapter > 1:
+            self.reader_selected_chapter -= 1
+            return BibleState.fetch_reader_chapter
+
+    @rx.event
+    def reader_next_chapter(self):
+        """Go to next chapter."""
+        for b in ALL_BIBLE_BOOKS:
+            if b["api_id"] == self.reader_selected_book:
+                if self.reader_selected_chapter < b["chapters"]:
+                    self.reader_selected_chapter += 1
+                    return BibleState.fetch_reader_chapter
+                break
+
+    @rx.event
+    def set_reader_testament_filter(self, filter_val: str):
+        self.reader_testament_filter = filter_val
+
+    @rx.event
+    def set_reader_selected_chapter_zero(self):
+        self.reader_selected_chapter = 0
+        self.reader_text = ""
+
+    @rx.event(background=True)
+    async def fetch_reader_chapter(self):
+        """Fetch chapter text from API.Bible for the reader."""
+        async with self:
+            self.reader_loading = True
+            self.reader_text = ""
+            book_id = self.reader_selected_book
+            chapter = self.reader_selected_chapter
+            bible_id_val = self.bible_id
+            api_key_val = self.api_bible_key
+        try:
+            chapter_id = f"{book_id}.{chapter}"
+            url = (
+                f"https://rest.api.bible/v1/bibles/{bible_id_val}/chapters/{chapter_id}"
+            )
+            headers = {"api-key": api_key_val}
+            params = {"content-type": "text"}
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(
+                None,
+                functools.partial(requests.get, url, headers=headers, params=params),
+            )
+            if response.status_code == 200:
+                data = response.json().get("data", {})
+                content = data.get("content", "")
+                async with self:
+                    self.reader_text = content
+                    self.reader_loading = False
+            else:
+                async with self:
+                    self.reader_text = (
+                        f"Error al cargar el capítulo: {response.status_code}"
+                    )
+                    self.reader_loading = False
+        except Exception as e:
+            logging.exception("Error fetching reader chapter")
+            async with self:
+                self.reader_text = f"Error: {str(e)}"
+                self.reader_loading = False
 
     @rx.event
     def set_hovered(self, char_id: str):
@@ -2873,3 +3030,30 @@ class BibleState(rx.State):
         if self.view_state == "new_testament":
             return "1600px"
         return "2200px"
+
+    @rx.var
+    def all_bible_books_list(self) -> list[dict]:
+        """Return the full list of Bible books, filtered by testament."""
+        if self.reader_testament_filter == "AT":
+            return [b for b in ALL_BIBLE_BOOKS if b["testament"] == "AT"]
+        elif self.reader_testament_filter == "NT":
+            return [b for b in ALL_BIBLE_BOOKS if b["testament"] == "NT"]
+        return list(ALL_BIBLE_BOOKS)
+
+    @rx.var
+    def reader_chapter_list(self) -> list[int]:
+        """Return list of chapter numbers for the expanded book."""
+        if not self.reader_expanded_book:
+            return []
+        for b in ALL_BIBLE_BOOKS:
+            if b["api_id"] == self.reader_expanded_book:
+                return list(range(1, b["chapters"] + 1))
+        return []
+
+    @rx.var
+    def reader_max_chapters(self) -> int:
+        """Return max chapters for the currently selected reader book."""
+        for b in ALL_BIBLE_BOOKS:
+            if b["api_id"] == self.reader_selected_book:
+                return b["chapters"]
+        return 0
