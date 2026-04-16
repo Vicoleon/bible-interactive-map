@@ -8,10 +8,16 @@ def navigation() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.div(
-                    rx.icon("book-open", class_name="text-[#8b5a2b] mr-3", size=28),
-                    rx.el.h1(
-                        "Mapa Bíblico",
-                        class_name="text-2xl font-bold text-[#4a3320] font-serif tracking-wide whitespace-nowrap hidden sm:block",
+                    rx.icon("landmark", class_name="text-[#8b5a2b] mr-3", size=30),
+                    rx.el.div(
+                        rx.el.h1(
+                            "Atlas Fidei",
+                            class_name="text-2xl font-bold text-[#4a3320] font-serif tracking-wide whitespace-nowrap hidden sm:block leading-none",
+                        ),
+                        rx.el.p(
+                            "Escritura · Santos · Tradición",
+                            class_name="hidden sm:block text-[11px] uppercase tracking-[0.18em] text-[#8b5a2b] font-semibold mt-1 whitespace-nowrap",
+                        ),
                     ),
                     class_name="flex items-center shrink-0",
                 ),
@@ -52,9 +58,20 @@ def navigation() -> rx.Component:
                             rx.el.span("📜 "),
                             rx.el.span("Cronología", class_name="hidden sm:inline"),
                             on_click=lambda: BibleState.set_active_view("timeline"),
-                            class_name="px-3 sm:px-4 py-2 rounded-r-lg border border-l-0 border-[#d4b886] font-medium transition-colors "
+                            class_name="px-3 sm:px-4 py-2 border-y border-[#d4b886] font-medium transition-colors "
                             + rx.cond(
                                 BibleState.active_view == "timeline",
+                                "bg-[#8b5a2b] text-white",
+                                "bg-white/80 text-stone-700 hover:bg-stone-100",
+                            ),
+                        ),
+                        rx.el.button(
+                            rx.el.span("✦ "),
+                            rx.el.span("Santos", class_name="hidden sm:inline"),
+                            on_click=lambda: BibleState.set_active_view("saints"),
+                            class_name="px-3 sm:px-4 py-2 rounded-r-lg border border-l-0 border-[#d4b886] font-medium transition-colors "
+                            + rx.cond(
+                                BibleState.active_view == "saints",
                                 "bg-[#8b5a2b] text-white",
                                 "bg-white/80 text-stone-700 hover:bg-stone-100",
                             ),

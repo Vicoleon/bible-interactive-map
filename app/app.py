@@ -6,6 +6,7 @@ from app.components.timeline_view import timeline_view
 from app.states.bible_state import BibleState
 from app.components.chat_panel import chat_panel
 from app.components.bible_reader import bible_reader
+from app.components.saints_wiki import saints_wiki
 
 
 def context_modal() -> rx.Component:
@@ -97,7 +98,15 @@ def index() -> rx.Component:
             rx.cond(
                 BibleState.active_view == "bible",
                 bible_reader(),
-                rx.cond(BibleState.active_view == "map", map_canvas(), timeline_view()),
+                rx.cond(
+                    BibleState.active_view == "map",
+                    map_canvas(),
+                    rx.cond(
+                        BibleState.active_view == "timeline",
+                        timeline_view(),
+                        saints_wiki(),
+                    ),
+                ),
             ),
             detail_panel(),
             class_name="relative w-full flex-1 overflow-hidden",
